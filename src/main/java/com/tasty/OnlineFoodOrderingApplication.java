@@ -3,6 +3,7 @@ package com.tasty;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
 public class OnlineFoodOrderingApplication {
 
@@ -10,4 +11,6 @@ public class OnlineFoodOrderingApplication {
 		SpringApplication.run(OnlineFoodOrderingApplication.class, args);
 	}
 
+
 }
+

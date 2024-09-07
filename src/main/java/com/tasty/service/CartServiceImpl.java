@@ -44,10 +44,11 @@ public class CartServiceImpl implements CartService{
 
         CartItem newCartItem = new CartItem();
         newCartItem.setFood(food);
-        newCartItem.setCart(cart);
+
         newCartItem.setQuantity(req.getQuantity());
         newCartItem.setIngredients(req.getIngredients());
         newCartItem.setTotalPrice(req.getQuantity()+food.getPrice());
+        newCartItem.setCart(cart);
 
         CartItem savedCartItem = cartItemRepository.save(newCartItem);
 
@@ -85,9 +86,10 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public Long calculateCartTotals(Cart cart) throws Exception {
-        Long total = Long.valueOf(0);
-        for (CartItem cartItem:cart.getItems())
-            total=cartItem.getFood().getPrice()*cartItem.getQuantity();
+        Long total = 0L;
+        for (CartItem cartItem : cart.getItems()){
+            total += cartItem.getFood().getPrice()*cartItem.getQuantity();
+        }
         return total;
     }
 

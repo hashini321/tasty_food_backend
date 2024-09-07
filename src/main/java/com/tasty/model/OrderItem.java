@@ -24,6 +24,5 @@ public class OrderItem {
 
     private Long totalPrice;
 
-    @ElementCollection
     private List<String> ingredients;
 }

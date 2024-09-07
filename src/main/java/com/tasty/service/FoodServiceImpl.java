@@ -8,6 +8,7 @@ import com.tasty.request.CreateFoodRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,6 +31,7 @@ public class FoodServiceImpl implements FoodService {
         food.setIngredients(req.getIngredients());
         food.setSeasonal(req.isSeasonal());
         food.setVegetarian(req.isVegetarian());
+        food.setCreationDate(new Date());
 
         Food  savedFood = foodRepository.save(food);
         restaurant.getFoods().add(savedFood);
@@ -47,7 +49,11 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public List<Food> getRestaurantsFood(Long restaurantId, boolean isVegetarian, boolean isNonVeg, boolean isSeasonal, String foodCategory) {
+    public List<Food> getRestaurantsFood(Long restaurantId,
+                                         boolean isVegetarian,
+                                         boolean isNonVeg,
+                                         boolean isSeasonal,
+                                         String foodCategory) {
 
         List<Food> foods = foodRepository.findByRestaurantId(restaurantId);
 
@@ -76,7 +82,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     private List<Food> filterBySeasonal(List<Food> foods, boolean isSeasonal) {
-        return foods.stream().filter(food -> food.isVegetarian()==isSeasonal).collect(Collectors.toList());
+        return foods.stream().filter(food -> food.isSeasonal()==isSeasonal).collect(Collectors.toList());
     }
 
     private List<Food> filterByNonVeg(List<Food> foods, boolean isNonVeg) {
